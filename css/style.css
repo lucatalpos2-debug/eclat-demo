@@ -885,5 +885,11 @@ h1, h2 { font-weight: 500; }
 .m-arch { width: 74px; height: 74px; border-radius: var(--frame); }
 @media (max-width: 620px) { .m-arch { width: 58px; height: 58px; } }
 
-/* Experiența — numerele 1–4 */
-.pillar .num { font-style: normal; font-size: 34px; font-weight: 500; line-height: 1; color: var(--walnut); font-variant-numeric: lining-nums; }
+/* Experiența — numerele 1–4, în cerc mic deasupra titlului */
+.pillar { gap: 10px; }
+.pillar .num {
+  width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line);
+  display: grid; place-items: center; margin-bottom: 4px;
+  font-family: var(--sans); font-style: normal; font-size: 15px; font-weight: 500; line-height: 1; color: var(--walnut);
+  font-variant-numeric: lining-nums tabular-nums;
+}
