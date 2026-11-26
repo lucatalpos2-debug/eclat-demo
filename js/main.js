@@ -13,8 +13,10 @@
     // POST {endpoint}/clients/check cu { firstVisit: true|false } (lista de cliente importată din Mero).
     // În modul "demo": numerele de mai jos + programările făcute deja din acest browser.
     demoKnownClients: ["0700000001", "0700000002"],
-    promoUntil: "2026-11-30",
-    promoPercent: 20,
+    // Ofertă pentru prima vizită: oprită (salonul nu are o asemenea ofertă). Se pornește cu o dată de final
+    // (ex. "2026-12-31") și un procent; atunci site-ul recunoaște singur prima vizită după telefon.
+    promoUntil: "",
+    promoPercent: 0,
     daysAhead: 21,
     slotStep: 30,          // minute
     minLeadMinutes: 60,    // nu se pot face programări cu mai puțin de 1h înainte
@@ -47,7 +49,7 @@
     return { date, minutes: (+p.hour % 24) * 60 + +p.minute, dow: date.getUTCDay() };
   }
   const isoDay = (d) => `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`;
-  const promoActive = () => isoDay(nowRO().date) <= CONFIG.promoUntil;
+  const promoActive = () => !!CONFIG.promoUntil && CONFIG.promoPercent > 0 && isoDay(nowRO().date) <= CONFIG.promoUntil;
 
   /* ---------------- Date din pagină (sursă unică) ---------------- */
   const SERVICES = $$(".svc").map((el) => ({

@@ -290,7 +290,7 @@
         <button class="icon-btn small close" data-close aria-label="Închide"><svg><use href="#i-x"/></svg></button>
         <h2 id="drawerTitle">${esc(a.client_name)}</h2>
         <div class="d-sub"><a href="tel:${esc(a.phone)}"><svg><use href="#i-phone"/></svg>${esc(fmtPhone(a.phone))}</a>
-          ${a.first_visit ? `<span class="tag gold">Prima vizită · −${a.discount_pct}%</span>` : '<span class="tag">Clientă revenită</span>'}
+          ${a.first_visit ? `<span class="tag gold">Prima vizită${a.discount_pct ? ` · −${a.discount_pct}%` : ""}</span>` : '<span class="tag">Clientă revenită</span>'}
           <span class="tag">${a.source === "website" ? "Programată online" : "Adăugată în salon"}</span>
           ${a.status === "cancelled" && a.cancelled_by === "client" ? '<span class="tag warn">Anulată de clientă, din linkul primit pe e-mail</span>' : ""}</div>
         ${quickContact(a.phone)}
@@ -377,7 +377,7 @@
           <label class="field"><span>Ora</span><select id="naTime">${timeOptions(time ?? 600)}</select></label>
         </div>
         <div class="grid2">
-          <label class="field"><span>Preț (lei)</span><input type="number" id="naPrice" min="0" placeholder="automat"><small>Gol = prețul din listă (cu −20% dacă e prima vizită)</small></label>
+          <label class="field"><span>Preț (lei)</span><input type="number" id="naPrice" min="0" placeholder="automat"><small>Gol = prețul din listă</small></label>
           <label class="field"><span>Durata (minute)</span><input type="number" id="naDur" min="15" max="600" step="5"></label>
         </div>
         <label class="field"><span>Observații</span><textarea id="naNotes"></textarea></label>
@@ -411,7 +411,7 @@
       const b = e.target.closest("button"); if (!b) return;
       clientId = Number(b.dataset.id); $("#naPhone").value = fmtPhone(b.dataset.phone); $("#naName").value = b.dataset.name;
       sug.hidden = true;
-      $("#naInfo").textContent = `Clientă existentă · ${b.dataset.visits} vizite finalizate${b.dataset.imp > 0 ? " · importată din Mero" : ""}. Nu primește reducerea de prima vizită.`;
+      $("#naInfo").textContent = `Clientă existentă · ${b.dataset.visits} vizite finalizate${b.dataset.imp > 0 ? " · importată din Mero" : ""}.`;
       $("#naInfo").hidden = false;
     });
 
@@ -558,7 +558,7 @@
         <div class="grid2"><label class="field"><span>Nume</span><input id="ncName"></label><label class="field"><span>Telefon</span><input id="ncPhone" inputmode="tel" placeholder="07xx xxx xxx"></label></div>
         <label class="field"><span>E-mail (opțional)</span><input id="ncEmail" type="email"></label>
         <label class="field"><span>Notițe</span><textarea id="ncNotes"></textarea></label>
-        <label class="check"><input type="checkbox" id="ncExisting" checked> A mai fost la salon (nu primește reducerea de prima vizită)</label>
+        <label class="check"><input type="checkbox" id="ncExisting" checked> A mai fost la salon (nu apare ca „Prima vizită”)</label>
         <p class="form-error" id="ncErr" hidden></p>
       </div>
       <div class="m-foot"><button type="button" class="btn ghost" data-mclose>Renunță</button><button class="btn" type="submit">Adaugă clienta</button></div>

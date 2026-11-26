@@ -70,7 +70,7 @@
       if (!s || !open(date) || !fits(date, start, s.dur)) return;
       const c = st.clients[ci], first = c.imported_visits ? 0 : st.appointments.some((a) => a.client_id === c.id) ? 0 : 1;
       st.appointments.push({ id: st.seq++, client_id: c.id, service_id: s.id, service_name: fullName(s), staff_id: staff, date, start_min: start, end_min: start + s.dur,
-        price_label: priceLabel(s), price_final: Math.round(s.price_min * (first ? 0.8 : 1)), first_visit: first, discount_pct: first ? 20 : 0,
+        price_label: priceLabel(s), price_final: s.price_min, first_visit: first, discount_pct: 0,
         status, source: online ? "website" : "manual", notes: "", seen: online && date >= today ? 0 : 1, cancelled_by: "", changed_by: online ? "" : "Administrator" });
     };
     DAY.forEach(([staff, svc, time, ci, online]) => add(today, staff, svc, time, ci, online));
@@ -96,7 +96,7 @@
   const withClient = (a) => { const c = client(a.client_id) || {}; return { ...a, client_name: c.name, phone: c.phone, client_email: c.email }; };
   const sorted = (arr) => [...arr].sort((a, b) => a.sort - b.sort || a.name.localeCompare(b.name));
   const isFirst = (phone) => { const c = S.clients.find((x) => x.phone === phone); return !c || (!c.imported_visits && !S.appointments.some((a) => a.client_id === c.id && a.status !== "cancelled")); };
-  const promo = () => nowRO().date <= SEED.salon.promo.until;
+  const promo = () => !!SEED.salon.promo && nowRO().date <= SEED.salon.promo.until;
   const minutesUntil = (d, s) => { const n = nowRO(); return (Date.parse(d) - Date.parse(n.date)) / 60000 + s - n.minutes; };
 
   function catalog(own) {
@@ -138,7 +138,7 @@
         if (name.length < 2) throw bad("Completează numele clientei."); if (!phoneValid(phone)) throw bad("Numărul de telefon nu pare corect.");
         cid = upsertClient({ name, phone }, "manual");
       }
-      const first = promo() && isFirst(client(cid).phone) ? 1 : 0, pct = first ? SEED.salon.promo.percent : 0;
+      const first = isFirst(client(cid).phone) ? 1 : 0, pct = first && promo() ? SEED.salon.promo.percent : 0;
       const a = { id: S.seq++, client_id: cid, service_id: svc.id, service_name: fullName(svc), staff_id: st.id, date, start_min: start, end_min: end,
         price_label: priceLabel(svc), price_final: b.priceFinal != null && b.priceFinal !== "" ? Math.max(0, Number(b.priceFinal) | 0) : Math.round(svc.price_min * (1 - pct / 100)),
         first_visit: first, discount_pct: pct, status: "confirmed", source: "manual", notes: str(b.notes, 600), seen: 1, cancelled_by: "", changed_by: actor };
