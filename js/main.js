@@ -287,7 +287,7 @@
   /* ---- Pas 4: formular ---- */
   const form = $("#detailsForm");
   const phoneOk = (v) => /^(\+?40|0040|0)7\d{8}$/.test(v.replace(/[\s.\-()]/g, "")) || /^(\+?40|0)[23]\d{8}$/.test(v.replace(/[\s.\-()]/g, ""));
-  const emailOk = (v) => !v || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+  const emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); // obligatoriu: acolo pleacă confirmarea și linkul de anulare
   function validate(show) {
     const name = $("#fName").value.trim(), phone = $("#fPhone").value.trim(), email = $("#fEmail").value.trim();
     const res = { fName: name.length >= 2, fPhone: phoneOk(phone), fEmail: emailOk(email) };
@@ -503,7 +503,7 @@
 
   function showDone(p) {
     $("#doneName").textContent = p.name.split(" ")[0] || "frumoaso";
-    $("#doneText").textContent = `${p.service}, ${whenLabel().replace(" · ", " la ")}, cu ${p.staff.replace(" (prima disponibilă)", "")}.${p.firstVisit ? ` Reducerea de ${CONFIG.promoPercent}% pentru prima vizită este aplicată.` : ""} Te așteptăm pe Str. Lascăr Pană nr. 2, vizavi de Assoc.`;
+    $("#doneText").textContent = `${p.service}, ${whenLabel().replace(" · ", " la ")}, cu ${p.staff.replace(" (prima disponibilă)", "")}.${p.firstVisit ? ` Reducerea de ${CONFIG.promoPercent}% pentru prima vizită este aplicată.` : ""} Te așteptăm pe Str. Lascăr Pană nr. 2, vizavi de Assoc.${CONFIG.mode === "live" ? ` Ți-am trimis confirmarea pe ${p.email}, cu linkul de anulare.` : ""}`;
     $("#demoTag").hidden = CONFIG.mode !== "demo";
     $("#icsBtn").href = icsUrl(p);
     go(5);

@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Jost:wght@300..600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=25ac036e2e">
+  <link rel="stylesheet" href="css/style.css?v=5dda7df770">
 
   <script type="application/ld+json">
   {
@@ -409,7 +409,7 @@
                   <div class="field"><label for="fPhone">Telefon</label><input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="07xx xxx xxx" required><span class="err">Introdu un număr de telefon valid.</span></div>
                   <!-- Reducerea de prima vizită se decide automat după numărul de telefon (nu o bifează clienta) -->
                   <div class="visit-status" id="firstVisitWrap" style="grid-column:1/-1" aria-live="polite" hidden></div>
-                  <div class="field full"><label for="fEmail">E-mail <span style="text-transform:none;letter-spacing:0">(opțional, pentru confirmare)</span></label><input id="fEmail" name="email" type="email" autocomplete="email"><span class="err">Adresa de e-mail nu pare corectă.</span></div>
+                  <div class="field full"><label for="fEmail">E-mail <span style="text-transform:none;letter-spacing:0">(primești confirmarea, reamintirea și linkul de anulare)</span></label><input id="fEmail" name="email" type="email" autocomplete="email" inputmode="email" required><span class="err">Scrie o adresă de e-mail validă: acolo primești confirmarea.</span></div>
                   <div class="field full"><label for="fNotes">Observații <span style="text-transform:none;letter-spacing:0">(opțional)</span></label><textarea id="fNotes" name="notes" placeholder="Lungimea dorită, model, sensibilități…"></textarea></div>
                   <label class="check" style="grid-column:1/-1"><input type="checkbox" id="fGdpr" required> <span>Sunt de acord ca datele mele să fie folosite doar pentru gestionarea programării. <a href="#">Politica de confidențialitate</a></span></label>
                 </div>
@@ -446,7 +446,8 @@
           </dl>
           <div class="total"><span class="disc" id="sumDisc"></span><span><s id="sumOld"></s><b id="sumPrice">—</b></span></div>
           <ul class="reassure">
-            <li>Confirmare imediată</li>
+            <li>Confirmare imediată pe e-mail</li>
+            <li>Anulezi ușor, din linkul primit</li>
             <li>Fără cont, fără aplicație de instalat</li>
             <li>Plata se face la salon</li>
           </ul>
@@ -476,7 +477,11 @@
         </details>
         <details class="faq-item reveal">
           <summary>Cum mă programez?</summary>
-          <p>Online, direct pe acest site: alegi serviciul, specialista și ora, apoi completezi numele și telefonul. Programarea este confirmată pe loc.</p>
+          <p>Online, direct pe acest site: alegi serviciul, specialista și ora, apoi completezi numele, telefonul și e-mailul. Programarea este confirmată pe loc, iar confirmarea îți vine pe e-mail.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Cum îmi anulez programarea?</summary>
+          <p>Din e-mailul de confirmare: apasă „Anulează programarea”, cu cel puțin 2 ore înainte. Îți trimitem și o reamintire pe e-mail cu 24 de ore înainte de programare.</p>
         </details>
         <details class="faq-item reveal">
           <summary>Cât durează o manichiură cu ojă semipermanentă?</summary>
@@ -522,7 +527,15 @@
       "name": "Cum mă programez?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Online, direct pe acest site: alegi serviciul, specialista și ora, apoi completezi numele și telefonul. Programarea este confirmată pe loc."
+        "text": "Online, direct pe acest site: alegi serviciul, specialista și ora, apoi completezi numele, telefonul și e-mailul. Programarea este confirmată pe loc, iar confirmarea îți vine pe e-mail."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Cum îmi anulez programarea?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Din e-mailul de confirmare: apasă „Anulează programarea”, cu cel puțin 2 ore înainte. Îți trimitem și o reamintire pe e-mail cu 24 de ore înainte de programare."
       }
     },
     {
@@ -650,6 +663,6 @@
   <a class="btn light" href="#programare">Programează-te</a>
 </div>
 
-<script src="js/main.js?v=25ac036e2e"></script>
+<script src="js/main.js?v=5dda7df770"></script>
 </body>
 </html>
